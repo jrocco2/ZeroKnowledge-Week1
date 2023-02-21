@@ -11,5 +11,18 @@ template RangeProof(n) {
     component lt = LessEqThan(n);
     component gt = GreaterEqThan(n);
 
-    // [assignment] insert your code here
+    // Range is 10 - 20
+
+    // if input is less than 20, then lt.out = 1
+    lt.in[0] <== in;
+    lt.in[1] <== range[1];
+
+    // if input is greater than 10, then gt.out = 1
+    gt.in[0] <== in;
+    gt.in[1] <== range[0];
+
+    out <== lt.out * gt.out;
+
 }
+
+component main = RangeProof(32);

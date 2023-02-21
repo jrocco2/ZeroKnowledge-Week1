@@ -8,6 +8,7 @@ template LessThan10() {
 
     component lt = LessThan(32); 
 
+    // If input is less than 10, output is 1
     lt.in[0] <== in;
     lt.in[1] <== 10;
 

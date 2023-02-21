@@ -11,20 +11,20 @@ else
     wget https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_10.ptau
 fi
 
-echo "Compiling Multiplier3.circom..."
+echo "Compiling Multiplier3Plonk.circom..."
 
 # compile circuit
 
-circom Multiplier3.circom --r1cs --wasm --sym -o Multiplier3
+circom Multiplier3Plonk.circom --r1cs --wasm --sym -o Multiplier3
 snarkjs r1cs info Multiplier3_plonk/Multiplier3.r1cs
 
-# Start a new zkey and make a contribution
+# Start a new zkey
+# With plonk we don't need to make a contribution
 
-snarkjs plonk setup Multiplier3_plonk/Multiplier3.r1cs powersOfTau28_hez_final_10.ptau Multiplier3_plonk/circuit_0000.zkey
-snarkjs zkey export verificationkey Multiplier3_plonk/circuit_final.zkey Multiplier3_plonk/verification_key.json
+snarkjs plonk setup Multiplier3_plonk/Multiplier3.r1cs powersOfTau28_hez_final_10.ptau Multiplier3_plonk/circuit_final.zkey
 
 # generate solidity contract
-snarkjs zkey export solidityverifier Multiplier3_plonk/circuit_final.zkey ../Multiplier3Verifier.sol
+snarkjs zkey export solidityverifier Multiplier3_plonk/circuit_final.zkey ../Multiplier3VerifierPlonk.sol
 
 cd ../..
 
